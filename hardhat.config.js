@@ -19,6 +19,12 @@ module.exports = {
     }
   },
   networks: {
+    hardhat: {
+      forking: {
+        url: 'https://api.avax.network/ext/bc/C/rpc'
+      },
+      chainId: 43114 // mimick mainnet avax
+    },
     fuji: {
       url: 'https://api.avax-test.network/ext/bc/C/rpc',
       chainId: 43113,

@@ -1,0 +1,47 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "MemoPool",
+  "sourceName": "contracts/rb-pool-controller.sol",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "burn",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "mint",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x6080604052348015600f57600080fd5b5060b28061001e6000396000f3fe6080604052348015600f57600080fd5b506004361060325760003560e01c806340c10f191460375780639dc29fac146037575b600080fd5b604660423660046048565b5050565b005b600080604083850312156059578182fd5b82356001600160a01b0381168114606e578283fd5b94602093909301359350505056fea26469706673582212203e2f8cad03e56814673024e64dbe7ecf478107c5292ae63840b93f9649b5a32364736f6c63430008020033",
+  "deployedBytecode": "0x6080604052348015600f57600080fd5b506004361060325760003560e01c806340c10f191460375780639dc29fac146037575b600080fd5b604660423660046048565b5050565b005b600080604083850312156059578182fd5b82356001600160a01b0381168114606e578283fd5b94602093909301359350505056fea26469706673582212203e2f8cad03e56814673024e64dbe7ecf478107c5292ae63840b93f9649b5a32364736f6c63430008020033",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}

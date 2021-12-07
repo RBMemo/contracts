@@ -27,6 +27,7 @@
     "chai": "^4.3.4",
     "chai-ethers": "^0.0.1",
     "dotenv": "^10.0.0",
+    "eth-permit": "^0.2.1",
     "ethers": "^5.5.1",
     "hardhat": "^2.7.0",
     "hardhat-contract-sizer": "^2.1.1",
