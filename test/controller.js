@@ -77,4 +77,23 @@ describe('RBPoolController', () => {
       });
     });
   });
+
+  describe('poolSwap', () => {
+    beforeEach(async () => {
+      await sendMemo(users[0].address, `${1 * 10**9}`);
+      permitSignature = await signPermit(users[0].address, controller.address, `${1 * 10**9}`);
+      await controller.deposit(users[0].address, `${1 * 10**9}`, 0, permitSignature);
+    });
+
+    it('swaps pool tokens', async () => {
+      await controller.poolSwap(users[0].address, `${.75 * 10**9}`, 0, 1);
+
+      expect((await redPool.balanceOf(users[0].address)).eq(bn.from(`${.25 * 10**9}`))).to.eq(true);
+      expect((await blackPool.balanceOf(users[0].address)).eq(bn.from(`${.75 * 10**9}`))).to.eq(true);
+    });
+
+    it('only allows balance amount', async () => {
+      expect(controller.poolSwap(users[0].address, `${2 * 10**9}`, 0, 1)).to.be.reverted;
+    });
+  });
 });

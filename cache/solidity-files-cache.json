@@ -797,8 +797,8 @@
       ]
     },
     "/Users/drew/projects/rbmemo/contracts/contracts/rb-pool-controller.sol": {
-      "lastModificationDate": 1638855012387,
-      "contentHash": "8fc6fb8d2ed248ca7ea4e96b31f2f892",
+      "lastModificationDate": 1638856061518,
+      "contentHash": "2f640a85aff286bb3678df6edf796df9",
       "sourceName": "contracts/rb-pool-controller.sol",
       "solcConfig": {
         "version": "0.8.2",
@@ -836,8 +836,7 @@
         "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol",
         "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol",
         "@openzeppelin/contracts/token/ERC20/extensions/draft-ERC20Permit.sol",
-        "@openzeppelin/contracts/utils/Address.sol",
-        "hardhat/console.sol"
+        "@openzeppelin/contracts/utils/Address.sol"
       ],
       "versionPragmas": [
         "^0.8.0"

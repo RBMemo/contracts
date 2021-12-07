@@ -7,7 +7,6 @@ import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/draft-ERC20Permit.sol";
 import "@openzeppelin/contracts/utils/Address.sol";
-import "hardhat/console.sol";
 
 contract MemoPool {
   function mint(address account, uint amount) public {}
@@ -45,17 +44,22 @@ contract RBPoolController is Initializable, OwnableUpgradeable, UUPSUpgradeable 
     _pools[uint(Pool.black)] = MemoPool(blackMemoPool);
   }
 
-  function deposit(address account, uint amount, Pool pool, PermitSignature memory permitSignature) public returns(bool) {
+  function deposit(address account, uint amount, Pool pool, PermitSignature memory permitSignature) external returns(bool) {
     memoPermit(permitSignature);
     SafeERC20.safeTransferFrom(MEMO_CONTRACT, account, address(this), amount);
     _pool(pool).mint(account, amount);
     return true;
   }
 
-  function withdraw(address account, uint amount, Pool pool) public returns(bool) {
+  function withdraw(address account, uint amount, Pool pool) external returns(bool) {
     _pool(pool).burn(account, amount);
     SafeERC20.safeTransfer(MEMO_CONTRACT, account, amount);
     return true;
+  }
+
+  function poolSwap(address account, uint amount, Pool fromPool, Pool toPool) external {
+    _pool(fromPool).burn(account, amount);
+    _pool(toPool).mint(account, amount);
   }
 
   function memoPermit(PermitSignature memory permitSignature) public {
@@ -70,9 +74,7 @@ contract RBPoolController is Initializable, OwnableUpgradeable, UUPSUpgradeable 
     );
   }
 
-  function _pool(Pool pool) private view returns(MemoPool) {
-    return _pools[uint(pool)];
-  }
+  function _pool(Pool pool) private view returns(MemoPool) { return _pools[uint(pool)]; }
 
   function onUpgrade() public onlyOwner {}
   function _authorizeUpgrade(address newImplementation) internal onlyOwner override {}
