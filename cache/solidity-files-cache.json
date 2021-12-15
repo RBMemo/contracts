@@ -1,53 +1,6 @@
 {
   "_format": "hh-sol-cache-2",
   "files": {
-    "/Users/drew/projects/rbmemo/contracts/contracts/black-pool.sol": {
-      "lastModificationDate": 1638330465086,
-      "contentHash": "605ddf1ff65e114615c12bda44bb759d",
-      "sourceName": "contracts/black-pool.sol",
-      "solcConfig": {
-        "version": "0.8.2",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "devdoc",
-                "userdoc",
-                "storageLayout",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol",
-        "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol",
-        "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol",
-        "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "BlackMemoPool"
-      ]
-    },
     "/Users/drew/projects/rbmemo/contracts/node_modules/@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol": {
       "lastModificationDate": 1638752661473,
       "contentHash": "71b05990d102be9a7e6c7e3edb252f57",
@@ -704,53 +657,6 @@
         "StorageSlotUpgradeable"
       ]
     },
-    "/Users/drew/projects/rbmemo/contracts/contracts/red-pool.sol": {
-      "lastModificationDate": 1638330451029,
-      "contentHash": "83dd002cd27bf808c8a44789fb256327",
-      "sourceName": "contracts/red-pool.sol",
-      "solcConfig": {
-        "version": "0.8.2",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "devdoc",
-                "userdoc",
-                "storageLayout",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol",
-        "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol",
-        "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol",
-        "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "RedMemoPool"
-      ]
-    },
     "/Users/drew/projects/rbmemo/contracts/node_modules/@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol": {
       "lastModificationDate": 1638752661702,
       "contentHash": "5b6e28652fa1341238205cdbbfce8122",
@@ -797,8 +703,8 @@
       ]
     },
     "/Users/drew/projects/rbmemo/contracts/contracts/rb-pool-controller.sol": {
-      "lastModificationDate": 1638856061518,
-      "contentHash": "2f640a85aff286bb3678df6edf796df9",
+      "lastModificationDate": 1639541032694,
+      "contentHash": "8db5937affeddec05704eeea160780cc",
       "sourceName": "contracts/rb-pool-controller.sol",
       "solcConfig": {
         "version": "0.8.2",
@@ -836,7 +742,8 @@
         "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol",
         "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol",
         "@openzeppelin/contracts/token/ERC20/extensions/draft-ERC20Permit.sol",
-        "@openzeppelin/contracts/utils/Address.sol"
+        "@openzeppelin/contracts/utils/Address.sol",
+        "hardhat/console.sol"
       ],
       "versionPragmas": [
         "^0.8.0"
@@ -1766,6 +1673,55 @@
       ],
       "artifacts": [
         "console"
+      ]
+    },
+    "/Users/drew/projects/rbmemo/contracts/contracts/pools.sol": {
+      "lastModificationDate": 1639542075370,
+      "contentHash": "be23408878340e9386bdba3f3d41a955",
+      "sourceName": "contracts/pools.sol",
+      "solcConfig": {
+        "version": "0.8.2",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol",
+        "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol",
+        "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol",
+        "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "BlackMemoPool",
+        "MemoPoolBase",
+        "RedMemoPool"
       ]
     }
   }
