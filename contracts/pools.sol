@@ -6,14 +6,14 @@ import "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol"
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
 
-abstract contract MemoPoolBase is Initializable, ERC20Upgradeable, AccessControlUpgradeable, UUPSUpgradeable {
+abstract contract TokenPool is Initializable, ERC20Upgradeable, AccessControlUpgradeable, UUPSUpgradeable {
   bytes32 public constant ADMIN = keccak256("ADMIN");
   bytes32 public constant CONTROLLER = keccak256("CONTROLLER");
   
   /// @custom:oz-upgrades-unsafe-allow constructor
   constructor() initializer {}
 
-  function __MemoPoolBase_init(string memory name, string memory symbol) initializer public {
+  function __TokenPool_init(string memory name, string memory symbol) initializer public {
     __ERC20_init(name, symbol);
     __AccessControl_init();
     __UUPSUpgradeable_init();
@@ -36,14 +36,14 @@ abstract contract MemoPoolBase is Initializable, ERC20Upgradeable, AccessControl
   function decimals() public view virtual override(ERC20Upgradeable) returns (uint8) { return 9; }
 }
 
-contract RedMemoPool is MemoPoolBase {
+contract RedMemoPool is TokenPool {
   function initialize() initializer public {
-    __MemoPoolBase_init("RedMemoPool", "RMPL");
+    __TokenPool_init("RedMemoPool", "RMPL");
   }
 }
 
-contract BlackMemoPool is MemoPoolBase {
+contract BlackMemoPool is TokenPool {
   function initialize() initializer public {
-    __MemoPoolBase_init("BlackMemoPool", "BMPL");
+    __TokenPool_init("BlackMemoPool", "BMPL");
   }
 }

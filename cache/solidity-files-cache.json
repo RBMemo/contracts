@@ -703,8 +703,8 @@
       ]
     },
     "/Users/drew/projects/rbmemo/contracts/contracts/rb-pool-controller.sol": {
-      "lastModificationDate": 1639541032694,
-      "contentHash": "8db5937affeddec05704eeea160780cc",
+      "lastModificationDate": 1639582794692,
+      "contentHash": "0959c7e4e626137e34de87a860e4af70",
       "sourceName": "contracts/rb-pool-controller.sol",
       "solcConfig": {
         "version": "0.8.2",
@@ -743,13 +743,13 @@
         "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol",
         "@openzeppelin/contracts/token/ERC20/extensions/draft-ERC20Permit.sol",
         "@openzeppelin/contracts/utils/Address.sol",
+        "./pools.sol",
         "hardhat/console.sol"
       ],
       "versionPragmas": [
         "^0.8.0"
       ],
       "artifacts": [
-        "MemoPool",
         "RBPoolController"
       ]
     },
@@ -1676,8 +1676,8 @@
       ]
     },
     "/Users/drew/projects/rbmemo/contracts/contracts/pools.sol": {
-      "lastModificationDate": 1639542075370,
-      "contentHash": "be23408878340e9386bdba3f3d41a955",
+      "lastModificationDate": 1639542562805,
+      "contentHash": "0fbed46604c7d2b7a384e6e833594f00",
       "sourceName": "contracts/pools.sol",
       "solcConfig": {
         "version": "0.8.2",
@@ -1720,8 +1720,8 @@
       ],
       "artifacts": [
         "BlackMemoPool",
-        "MemoPoolBase",
-        "RedMemoPool"
+        "RedMemoPool",
+        "TokenPool"
       ]
     }
   }

@@ -1,6 +1,7 @@
+const { setupUsers, signPermit, sendMemo, getMemoContract, rngSeedHash, rngSeedHex } = require('./utils');
 const { ethers, deployments, getNamedAccounts, getUnnamedAccounts } = require('hardhat');
 const { expect } = require('./chai-setup');
-const { setupUsers, signPermit, sendMemo, getMemoContract } = require('./utils');
+const { v4: uuidv4 } = require('uuid');
 const bn = ethers.BigNumber;
 
 let deployer;
@@ -81,7 +82,7 @@ describe('RBPoolController', () => {
   describe('poolSwap', () => {
     beforeEach(async () => {
       await sendMemo(users[0].address, `${1 * 10**9}`);
-      permitSignature = await signPermit(users[0].address, controller.address, `${1 * 10**9}`);
+      let permitSignature = await signPermit(users[0].address, controller.address, `${1 * 10**9}`);
       await controller.deposit(users[0].address, `${1 * 10**9}`, 0, permitSignature);
     });
 
@@ -94,6 +95,39 @@ describe('RBPoolController', () => {
 
     it('only allows balance amount', async () => {
       expect(controller.poolSwap(users[0].address, `${2 * 10**9}`, 0, 1)).to.be.reverted;
+    });
+  });
+
+  describe('rebase', () => {
+    const seedKey = rngSeedHex('initial$33d');
+    let newSeedHash;
+    
+    beforeEach(async () => {
+      await sendMemo(users[0].address, `${1 * 10**9}`);
+      let permitSignature = await signPermit(users[0].address, controller.address, `${.5 * 10**9}`);
+      await controller.deposit(users[0].address, `${.5 * 10**9}`, 0, permitSignature);
+      
+      permitSignature = await signPermit(users[0].address, controller.address, `${.5 * 10**9}`);
+      await controller.deposit(users[0].address, `${.5 * 10**9}`, 1, permitSignature);
+
+      newSeedHash = rngSeedHash(`${uuidv4().slice(0,23)}`, deployer);
+    });
+
+    it('reverts with invalid seedKey', async () => {
+      const badKey = rngSeedHex('badkey');
+      expect(controller.rebase(badKey, newSeedHash)).to.be.revertedWith('Invalid RNG seed key');
+    });
+
+    it('sends fee to collector', async () => {
+      const memoContract = await getMemoContract(ethers.provider);
+      const feeCollector = await controller.feeCollector();
+      const feeBP = await controller.feeBP();
+      
+      await sendMemo(controller.address, `${1 * 10**9}`);
+      await controller.rebase(seedKey, newSeedHash);
+      const collectorBalance = await memoContract.balanceOf(feeCollector);
+
+      expect(bn.from(`${1 * 10**9}`).mul(feeBP).div(10000).eq(collectorBalance)).to.eq(true);
     });
   });
 });

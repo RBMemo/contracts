@@ -1,5 +1,6 @@
 const { ethers, deployments: { getArtifact } } = require('hardhat');
 const { signERC2612Permit } = require('eth-permit');
+const Web3 = require('web3');
 
 const MEMO_ADDRESS = '0x136Acd46C134E8269052c62A67042D6bDeDde3C9';
 const MEMO_HOLDER = '0x087e9c8ef2d97740340a471ff8bb49f5490f6cf6';
@@ -66,10 +67,28 @@ async function sendMemo(address, amount) {
   );
 }
 
+function rngSeedHash(seedKey, address) {  
+  const web3 = new Web3(ethers.provider);
+  const { utils, eth } = web3;
+
+  let seedHex = utils.padLeft(utils.toHex(seedKey), 64);
+  let encoded = eth.abi.encodeParameters(['address', 'bytes32'], [address, seedHex]);
+  return utils.sha3(encoded);
+}
+
+function rngSeedHex(seedKey) {
+  const web3 = new Web3(ethers.provider);
+  const { utils } = web3;
+
+  return utils.padLeft(utils.toHex(seedKey), 64);
+}
+
 module.exports = {
   setupUsers,
   setupUser,
   signPermit,
   sendMemo,
-  getMemoContract
+  getMemoContract,
+  rngSeedHash,
+  rngSeedHex
 }
