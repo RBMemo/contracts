@@ -22,10 +22,10 @@ async function setupUser(address, contracts) {
   return user;
 }
 
-async function signPermit(owner, spender, amount) {
+async function signPermit(owner, spender, amount, contract) {
   const { r, s, v, value, deadline } = await signERC2612Permit(
     ethers.provider,
-    MEMO_ADDRESS,
+    contract || MEMO_ADDRESS,
     owner,
     spender,
     amount

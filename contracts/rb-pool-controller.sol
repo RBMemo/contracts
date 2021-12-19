@@ -18,8 +18,6 @@ contract RBPoolController is Initializable, OwnableUpgradeable, UUPSUpgradeable 
   address payable public feeCollector;
   uint16 public feeBP;
 
-  event LogRebase(uint indexed timestamp, uint amount);
-
   struct PermitSignature {
     address owner;
     address spender;
@@ -35,7 +33,6 @@ contract RBPoolController is Initializable, OwnableUpgradeable, UUPSUpgradeable 
     black
   }
   
-  /// @custom:oz-upgrades-unsafe-allow constructor
   constructor() initializer {}
 
   function initialize(
@@ -100,10 +97,9 @@ contract RBPoolController is Initializable, OwnableUpgradeable, UUPSUpgradeable 
     MEMO_CONTRACT.transfer(feeCollector, fee);
 
     TokenPool selectedPool = _poolRNG(seedKey);
-    selectedPool.rewardRebase(totalRebase - fee);
+    selectedPool.rebase(totalRebase - fee);
 
     _seedHash = newSeedHash;
-    emit LogRebase(block.timestamp, totalRebase - fee);
   }
 
   function _poolRNG(bytes32 seedKey) private view returns(TokenPool) {

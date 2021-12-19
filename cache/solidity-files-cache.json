@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/Users/drew/projects/rbmemo/contracts/node_modules/@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol": {
-      "lastModificationDate": 1638752661473,
-      "contentHash": "71b05990d102be9a7e6c7e3edb252f57",
+      "lastModificationDate": 1639713698219,
+      "contentHash": "a61446f65a0f606b1fdcda5d638fffa1",
       "sourceName": "@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol",
       "solcConfig": {
         "version": "0.8.2",
@@ -49,8 +49,8 @@
       ]
     },
     "/Users/drew/projects/rbmemo/contracts/node_modules/@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol": {
-      "lastModificationDate": 1638752661207,
-      "contentHash": "9ac5fa69c8494602b9cad29d9b883c13",
+      "lastModificationDate": 1639713698190,
+      "contentHash": "65c3e0c1b8c05fe87fd00d86d9e294ef",
       "sourceName": "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol",
       "solcConfig": {
         "version": "0.8.2",
@@ -97,8 +97,8 @@
       ]
     },
     "/Users/drew/projects/rbmemo/contracts/node_modules/@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol": {
-      "lastModificationDate": 1638752661697,
-      "contentHash": "39b4ac346fd3572aa0ecd4729d74c2fc",
+      "lastModificationDate": 1639713698257,
+      "contentHash": "5794bf69c8a9e3f669b107e773226716",
       "sourceName": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol",
       "solcConfig": {
         "version": "0.8.2",
@@ -130,7 +130,9 @@
           }
         }
       },
-      "imports": [],
+      "imports": [
+        "../../utils/AddressUpgradeable.sol"
+      ],
       "versionPragmas": [
         "^0.8.0"
       ],
@@ -139,8 +141,8 @@
       ]
     },
     "/Users/drew/projects/rbmemo/contracts/node_modules/@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol": {
-      "lastModificationDate": 1638752661721,
-      "contentHash": "f69f93641a26c7fe99b13c1507e139db",
+      "lastModificationDate": 1639713698270,
+      "contentHash": "38239f5716fb005a4942175109ce7544",
       "sourceName": "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol",
       "solcConfig": {
         "version": "0.8.2",
@@ -184,8 +186,8 @@
       ]
     },
     "/Users/drew/projects/rbmemo/contracts/node_modules/@openzeppelin/contracts-upgradeable/token/ERC20/IERC20Upgradeable.sol": {
-      "lastModificationDate": 1638752661676,
-      "contentHash": "94639083be1badfbc6cff04f6b8295ae",
+      "lastModificationDate": 1639713698250,
+      "contentHash": "bda89765db83a5005510c8c2b1598731",
       "sourceName": "@openzeppelin/contracts-upgradeable/token/ERC20/IERC20Upgradeable.sol",
       "solcConfig": {
         "version": "0.8.2",
@@ -226,8 +228,8 @@
       ]
     },
     "/Users/drew/projects/rbmemo/contracts/node_modules/@openzeppelin/contracts-upgradeable/token/ERC20/extensions/IERC20MetadataUpgradeable.sol": {
-      "lastModificationDate": 1638752661673,
-      "contentHash": "f920ef50fb4b2e4dc45fbdc6935b0f9e",
+      "lastModificationDate": 1639713698248,
+      "contentHash": "9efcd5467a7f0bf533910ee8a267adb2",
       "sourceName": "@openzeppelin/contracts-upgradeable/token/ERC20/extensions/IERC20MetadataUpgradeable.sol",
       "solcConfig": {
         "version": "0.8.2",
@@ -270,8 +272,8 @@
       ]
     },
     "/Users/drew/projects/rbmemo/contracts/node_modules/@openzeppelin/contracts-upgradeable/utils/ContextUpgradeable.sol": {
-      "lastModificationDate": 1638752661252,
-      "contentHash": "f1ae43651f3cbd71f005fb781c589be9",
+      "lastModificationDate": 1639713698194,
+      "contentHash": "f6ab00c776fdf19b4fa9ba0309b0218c",
       "sourceName": "@openzeppelin/contracts-upgradeable/utils/ContextUpgradeable.sol",
       "solcConfig": {
         "version": "0.8.2",
@@ -314,8 +316,8 @@
       ]
     },
     "/Users/drew/projects/rbmemo/contracts/node_modules/@openzeppelin/contracts-upgradeable/access/IAccessControlUpgradeable.sol": {
-      "lastModificationDate": 1638752661650,
-      "contentHash": "26fbd546713f80f38f549ce1f9c72479",
+      "lastModificationDate": 1639713698240,
+      "contentHash": "21b43d1337ebc77c11da3cbe3fd65316",
       "sourceName": "@openzeppelin/contracts-upgradeable/access/IAccessControlUpgradeable.sol",
       "solcConfig": {
         "version": "0.8.2",
@@ -356,8 +358,8 @@
       ]
     },
     "/Users/drew/projects/rbmemo/contracts/node_modules/@openzeppelin/contracts-upgradeable/utils/StringsUpgradeable.sol": {
-      "lastModificationDate": 1638752661717,
-      "contentHash": "a81c3c3f19f46b79d25079286ec52062",
+      "lastModificationDate": 1639713698267,
+      "contentHash": "f60b5fcbc57911b0fbc7a31a110f90bc",
       "sourceName": "@openzeppelin/contracts-upgradeable/utils/StringsUpgradeable.sol",
       "solcConfig": {
         "version": "0.8.2",
@@ -398,8 +400,8 @@
       ]
     },
     "/Users/drew/projects/rbmemo/contracts/node_modules/@openzeppelin/contracts-upgradeable/utils/introspection/ERC165Upgradeable.sol": {
-      "lastModificationDate": 1638752661408,
-      "contentHash": "f4cc37631f2bdd74d695b20fb4ec734e",
+      "lastModificationDate": 1639713698212,
+      "contentHash": "a71370fa2c90b44922da1995bdf95e2a",
       "sourceName": "@openzeppelin/contracts-upgradeable/utils/introspection/ERC165Upgradeable.sol",
       "solcConfig": {
         "version": "0.8.2",
@@ -443,8 +445,8 @@
       ]
     },
     "/Users/drew/projects/rbmemo/contracts/node_modules/@openzeppelin/contracts-upgradeable/utils/introspection/IERC165Upgradeable.sol": {
-      "lastModificationDate": 1638752661668,
-      "contentHash": "82c2c01351b384455a60fc32c16ad39c",
+      "lastModificationDate": 1639713698246,
+      "contentHash": "d6ecf203a5e72c845be9bbf2f304a289",
       "sourceName": "@openzeppelin/contracts-upgradeable/utils/introspection/IERC165Upgradeable.sol",
       "solcConfig": {
         "version": "0.8.2",
@@ -485,8 +487,8 @@
       ]
     },
     "/Users/drew/projects/rbmemo/contracts/node_modules/@openzeppelin/contracts-upgradeable/proxy/ERC1967/ERC1967UpgradeUpgradeable.sol": {
-      "lastModificationDate": 1638752661415,
-      "contentHash": "3caa8108de95443b23af6e5a97c79586",
+      "lastModificationDate": 1639713698213,
+      "contentHash": "523aba2cb7f40529165e0b1da3beaff3",
       "sourceName": "@openzeppelin/contracts-upgradeable/proxy/ERC1967/ERC1967UpgradeUpgradeable.sol",
       "solcConfig": {
         "version": "0.8.2",
@@ -532,8 +534,8 @@
       ]
     },
     "/Users/drew/projects/rbmemo/contracts/node_modules/@openzeppelin/contracts-upgradeable/proxy/beacon/IBeaconUpgradeable.sol": {
-      "lastModificationDate": 1638752661652,
-      "contentHash": "f78322f5ad919a364a599c0638fe7b14",
+      "lastModificationDate": 1639713698240,
+      "contentHash": "21bffd733b4ca013e125a0ffe2e52254",
       "sourceName": "@openzeppelin/contracts-upgradeable/proxy/beacon/IBeaconUpgradeable.sol",
       "solcConfig": {
         "version": "0.8.2",
@@ -574,8 +576,8 @@
       ]
     },
     "/Users/drew/projects/rbmemo/contracts/node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol": {
-      "lastModificationDate": 1638752661223,
-      "contentHash": "7d8d035fd66837d3ee26f19549999175",
+      "lastModificationDate": 1639713698191,
+      "contentHash": "55b302649ec6d2886b1a017576fe887d",
       "sourceName": "@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol",
       "solcConfig": {
         "version": "0.8.2",
@@ -616,8 +618,8 @@
       ]
     },
     "/Users/drew/projects/rbmemo/contracts/node_modules/@openzeppelin/contracts-upgradeable/utils/StorageSlotUpgradeable.sol": {
-      "lastModificationDate": 1638752661716,
-      "contentHash": "5d04c0f18d94706be38f9fecdedd38dd",
+      "lastModificationDate": 1639713698266,
+      "contentHash": "fffe21caed735dbc8a621e3844f0adb1",
       "sourceName": "@openzeppelin/contracts-upgradeable/utils/StorageSlotUpgradeable.sol",
       "solcConfig": {
         "version": "0.8.2",
@@ -658,8 +660,8 @@
       ]
     },
     "/Users/drew/projects/rbmemo/contracts/node_modules/@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol": {
-      "lastModificationDate": 1638752661702,
-      "contentHash": "5b6e28652fa1341238205cdbbfce8122",
+      "lastModificationDate": 1639713698259,
+      "contentHash": "cf6aabe70ba1e832bfd230a0bca4a90a",
       "sourceName": "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol",
       "solcConfig": {
         "version": "0.8.2",
@@ -703,8 +705,8 @@
       ]
     },
     "/Users/drew/projects/rbmemo/contracts/contracts/rb-pool-controller.sol": {
-      "lastModificationDate": 1639582794692,
-      "contentHash": "0959c7e4e626137e34de87a860e4af70",
+      "lastModificationDate": 1639865627055,
+      "contentHash": "35b5ad6e27b154584c7190af9cf3023b",
       "sourceName": "contracts/rb-pool-controller.sol",
       "solcConfig": {
         "version": "0.8.2",
@@ -743,8 +745,7 @@
         "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol",
         "@openzeppelin/contracts/token/ERC20/extensions/draft-ERC20Permit.sol",
         "@openzeppelin/contracts/utils/Address.sol",
-        "./pools.sol",
-        "hardhat/console.sol"
+        "./pools.sol"
       ],
       "versionPragmas": [
         "^0.8.0"
@@ -754,8 +755,8 @@
       ]
     },
     "/Users/drew/projects/rbmemo/contracts/node_modules/@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol": {
-      "lastModificationDate": 1638752661712,
-      "contentHash": "995f86e1e2ba482741534d435d7df269",
+      "lastModificationDate": 1639713698256,
+      "contentHash": "76814c83c32552ed2b521c816b4d801a",
       "sourceName": "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol",
       "solcConfig": {
         "version": "0.8.2",
@@ -799,8 +800,8 @@
       ]
     },
     "/Users/drew/projects/rbmemo/contracts/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol": {
-      "lastModificationDate": 1638752661463,
-      "contentHash": "301fed494a57e27be4323bdff2d054bf",
+      "lastModificationDate": 1639713698206,
+      "contentHash": "f48de0eaae9544072b8766e2eac528a7",
       "sourceName": "@openzeppelin/contracts/token/ERC20/ERC20.sol",
       "solcConfig": {
         "version": "0.8.2",
@@ -845,8 +846,8 @@
       ]
     },
     "/Users/drew/projects/rbmemo/contracts/node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol": {
-      "lastModificationDate": 1638752661671,
-      "contentHash": "5f4c7678e2e69875dbd2ec01d3d288c1",
+      "lastModificationDate": 1639713698236,
+      "contentHash": "302d9755e46bc69d7058b0cbe7185e37",
       "sourceName": "@openzeppelin/contracts/token/ERC20/IERC20.sol",
       "solcConfig": {
         "version": "0.8.2",
@@ -887,8 +888,8 @@
       ]
     },
     "/Users/drew/projects/rbmemo/contracts/node_modules/@openzeppelin/contracts/utils/Address.sol": {
-      "lastModificationDate": 1638752661266,
-      "contentHash": "a8d6f1154bf88980c18dd20fb009967d",
+      "lastModificationDate": 1639713698186,
+      "contentHash": "4cff8b2ea0d958750786b4e3ca308445",
       "sourceName": "@openzeppelin/contracts/utils/Address.sol",
       "solcConfig": {
         "version": "0.8.2",
@@ -929,8 +930,8 @@
       ]
     },
     "/Users/drew/projects/rbmemo/contracts/node_modules/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol": {
-      "lastModificationDate": 1638752661673,
-      "contentHash": "5e82817b39b46b54032effefa77b2bd9",
+      "lastModificationDate": 1639713698237,
+      "contentHash": "909ab67fc5c25033fe6cd364f8c056f9",
       "sourceName": "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol",
       "solcConfig": {
         "version": "0.8.2",
@@ -973,8 +974,8 @@
       ]
     },
     "/Users/drew/projects/rbmemo/contracts/node_modules/@openzeppelin/contracts/utils/Context.sol": {
-      "lastModificationDate": 1638752661324,
-      "contentHash": "a06a83834de6f8eb27f6ed608d030ac2",
+      "lastModificationDate": 1639713698189,
+      "contentHash": "5f2c5c4b6af2dd4551027144797bc8be",
       "sourceName": "@openzeppelin/contracts/utils/Context.sol",
       "solcConfig": {
         "version": "0.8.2",
@@ -1015,8 +1016,8 @@
       ]
     },
     "/Users/drew/projects/rbmemo/contracts/node_modules/@openzeppelin/contracts/proxy/ERC1967/ERC1967Upgrade.sol": {
-      "lastModificationDate": 1638752661449,
-      "contentHash": "6ebac111231dbda5eb22151e05935a6d",
+      "lastModificationDate": 1639713698206,
+      "contentHash": "ceadc1585c7916aea8d2f4c04c82c462",
       "sourceName": "@openzeppelin/contracts/proxy/ERC1967/ERC1967Upgrade.sol",
       "solcConfig": {
         "version": "0.8.2",
@@ -1061,8 +1062,8 @@
       ]
     },
     "/Users/drew/projects/rbmemo/contracts/node_modules/@openzeppelin/contracts/proxy/beacon/IBeacon.sol": {
-      "lastModificationDate": 1638752661651,
-      "contentHash": "d0e9849ef60da3c74f6858deaec80060",
+      "lastModificationDate": 1639713698231,
+      "contentHash": "b6bd23bf19e90b771337037706470933",
       "sourceName": "@openzeppelin/contracts/proxy/beacon/IBeacon.sol",
       "solcConfig": {
         "version": "0.8.2",
@@ -1103,8 +1104,8 @@
       ]
     },
     "/Users/drew/projects/rbmemo/contracts/node_modules/@openzeppelin/contracts/utils/StorageSlot.sol": {
-      "lastModificationDate": 1638752661716,
-      "contentHash": "be3e4ca5185b42b021ff73ef9269f1fd",
+      "lastModificationDate": 1639713698258,
+      "contentHash": "187a01c1e4e638014509dfee3ac6faa9",
       "sourceName": "@openzeppelin/contracts/utils/StorageSlot.sol",
       "solcConfig": {
         "version": "0.8.2",
@@ -1145,8 +1146,8 @@
       ]
     },
     "/Users/drew/projects/rbmemo/contracts/node_modules/@openzeppelin/contracts/proxy/ERC1967/ERC1967Proxy.sol": {
-      "lastModificationDate": 1638752661447,
-      "contentHash": "0b0e023605541014ea83cc19db8651c8",
+      "lastModificationDate": 1639713698205,
+      "contentHash": "524a6c6f00b809b1184050dcc9e131d8",
       "sourceName": "@openzeppelin/contracts/proxy/ERC1967/ERC1967Proxy.sol",
       "solcConfig": {
         "version": "0.8.2",
@@ -1190,8 +1191,8 @@
       ]
     },
     "/Users/drew/projects/rbmemo/contracts/node_modules/@openzeppelin/contracts/proxy/Proxy.sol": {
-      "lastModificationDate": 1638752661702,
-      "contentHash": "f757eaf00eca9983818b431bb43367b8",
+      "lastModificationDate": 1639713698252,
+      "contentHash": "0ce1b80a6e3f466bd652ca52bb406173",
       "sourceName": "@openzeppelin/contracts/proxy/Proxy.sol",
       "solcConfig": {
         "version": "0.8.2",
@@ -1372,8 +1373,8 @@
       ]
     },
     "/Users/drew/projects/rbmemo/contracts/node_modules/@openzeppelin/contracts/token/ERC20/extensions/draft-ERC20Permit.sol": {
-      "lastModificationDate": 1638752661356,
-      "contentHash": "e4c40b995c0962a0ff6fa22a53814bdf",
+      "lastModificationDate": 1639713698193,
+      "contentHash": "4e2473d86be8e737a3ba1c38f36a2aab",
       "sourceName": "@openzeppelin/contracts/token/ERC20/extensions/draft-ERC20Permit.sol",
       "solcConfig": {
         "version": "0.8.2",
@@ -1420,8 +1421,8 @@
       ]
     },
     "/Users/drew/projects/rbmemo/contracts/node_modules/@openzeppelin/contracts/token/ERC20/extensions/draft-IERC20Permit.sol": {
-      "lastModificationDate": 1638752661358,
-      "contentHash": "1e0297b483bdce1722627a525bbdd245",
+      "lastModificationDate": 1639713698193,
+      "contentHash": "fb77f144244b9ab12533aa6ce85ef8c5",
       "sourceName": "@openzeppelin/contracts/token/ERC20/extensions/draft-IERC20Permit.sol",
       "solcConfig": {
         "version": "0.8.2",
@@ -1462,8 +1463,8 @@
       ]
     },
     "/Users/drew/projects/rbmemo/contracts/node_modules/@openzeppelin/contracts/utils/cryptography/draft-EIP712.sol": {
-      "lastModificationDate": 1638752661349,
-      "contentHash": "732c838c34a275fa33d9ef7875a45132",
+      "lastModificationDate": 1639713698191,
+      "contentHash": "161aae4dc1450371d0f324488f66a9cf",
       "sourceName": "@openzeppelin/contracts/utils/cryptography/draft-EIP712.sol",
       "solcConfig": {
         "version": "0.8.2",
@@ -1506,8 +1507,8 @@
       ]
     },
     "/Users/drew/projects/rbmemo/contracts/node_modules/@openzeppelin/contracts/utils/cryptography/ECDSA.sol": {
-      "lastModificationDate": 1638752661367,
-      "contentHash": "42570bd10cc10c86056ad80455103666",
+      "lastModificationDate": 1639713698194,
+      "contentHash": "395edffd6bb2b3ba29970d5814039654",
       "sourceName": "@openzeppelin/contracts/utils/cryptography/ECDSA.sol",
       "solcConfig": {
         "version": "0.8.2",
@@ -1550,8 +1551,8 @@
       ]
     },
     "/Users/drew/projects/rbmemo/contracts/node_modules/@openzeppelin/contracts/utils/Counters.sol": {
-      "lastModificationDate": 1638752661333,
-      "contentHash": "a21834c04c11733a9018196d6b1b0e89",
+      "lastModificationDate": 1639713698190,
+      "contentHash": "74654e3ae5d7f39555055dfe244dab7a",
       "sourceName": "@openzeppelin/contracts/utils/Counters.sol",
       "solcConfig": {
         "version": "0.8.2",
@@ -1592,8 +1593,8 @@
       ]
     },
     "/Users/drew/projects/rbmemo/contracts/node_modules/@openzeppelin/contracts/utils/Strings.sol": {
-      "lastModificationDate": 1638752661717,
-      "contentHash": "babfde9e032d8044f461325c13ca07d7",
+      "lastModificationDate": 1639713698258,
+      "contentHash": "9c54c6c065d9e590fdcdd72c451425b9",
       "sourceName": "@openzeppelin/contracts/utils/Strings.sol",
       "solcConfig": {
         "version": "0.8.2",
@@ -1634,7 +1635,7 @@
       ]
     },
     "/Users/drew/projects/rbmemo/contracts/node_modules/hardhat/console.sol": {
-      "lastModificationDate": 1638752661937,
+      "lastModificationDate": 1639713698385,
       "contentHash": "cc4777addd464ea56fa35b1c45df0591",
       "sourceName": "hardhat/console.sol",
       "solcConfig": {
@@ -1676,8 +1677,8 @@
       ]
     },
     "/Users/drew/projects/rbmemo/contracts/contracts/pools.sol": {
-      "lastModificationDate": 1639542562805,
-      "contentHash": "0fbed46604c7d2b7a384e6e833594f00",
+      "lastModificationDate": 1639876740353,
+      "contentHash": "c3e44d71f48dbbca0e537b085362e9ca",
       "sourceName": "contracts/pools.sol",
       "solcConfig": {
         "version": "0.8.2",
@@ -1710,10 +1711,11 @@
         }
       },
       "imports": [
-        "@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol",
+        "@openzeppelin/contracts-upgradeable/token/ERC20/extensions/draft-ERC20PermitUpgradeable.sol",
         "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol",
         "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol",
-        "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol"
+        "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol",
+        "hardhat/console.sol"
       ],
       "versionPragmas": [
         "^0.8.0"
@@ -1722,6 +1724,228 @@
         "BlackMemoPool",
         "RedMemoPool",
         "TokenPool"
+      ]
+    },
+    "/Users/drew/projects/rbmemo/contracts/node_modules/@openzeppelin/contracts-upgradeable/token/ERC20/extensions/draft-ERC20PermitUpgradeable.sol": {
+      "lastModificationDate": 1639713698198,
+      "contentHash": "3b009a88db11081ef1a640224ff2f623",
+      "sourceName": "@openzeppelin/contracts-upgradeable/token/ERC20/extensions/draft-ERC20PermitUpgradeable.sol",
+      "solcConfig": {
+        "version": "0.8.2",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "./draft-IERC20PermitUpgradeable.sol",
+        "../ERC20Upgradeable.sol",
+        "../../../utils/cryptography/draft-EIP712Upgradeable.sol",
+        "../../../utils/cryptography/ECDSAUpgradeable.sol",
+        "../../../utils/CountersUpgradeable.sol",
+        "../../../proxy/utils/Initializable.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "ERC20PermitUpgradeable"
+      ]
+    },
+    "/Users/drew/projects/rbmemo/contracts/node_modules/@openzeppelin/contracts-upgradeable/token/ERC20/extensions/draft-IERC20PermitUpgradeable.sol": {
+      "lastModificationDate": 1639713698198,
+      "contentHash": "afab576c4d1f55fbf293a0daf3826e31",
+      "sourceName": "@openzeppelin/contracts-upgradeable/token/ERC20/extensions/draft-IERC20PermitUpgradeable.sol",
+      "solcConfig": {
+        "version": "0.8.2",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IERC20PermitUpgradeable"
+      ]
+    },
+    "/Users/drew/projects/rbmemo/contracts/node_modules/@openzeppelin/contracts-upgradeable/utils/cryptography/draft-EIP712Upgradeable.sol": {
+      "lastModificationDate": 1639713698196,
+      "contentHash": "9b17c546d6163cebec215e58f29d96db",
+      "sourceName": "@openzeppelin/contracts-upgradeable/utils/cryptography/draft-EIP712Upgradeable.sol",
+      "solcConfig": {
+        "version": "0.8.2",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "./ECDSAUpgradeable.sol",
+        "../../proxy/utils/Initializable.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "EIP712Upgradeable"
+      ]
+    },
+    "/Users/drew/projects/rbmemo/contracts/node_modules/@openzeppelin/contracts-upgradeable/utils/cryptography/ECDSAUpgradeable.sol": {
+      "lastModificationDate": 1639713698199,
+      "contentHash": "7d4bea73a6c4c41b6226fab3c9b750e7",
+      "sourceName": "@openzeppelin/contracts-upgradeable/utils/cryptography/ECDSAUpgradeable.sol",
+      "solcConfig": {
+        "version": "0.8.2",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../StringsUpgradeable.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "ECDSAUpgradeable"
+      ]
+    },
+    "/Users/drew/projects/rbmemo/contracts/node_modules/@openzeppelin/contracts-upgradeable/utils/CountersUpgradeable.sol": {
+      "lastModificationDate": 1639713698194,
+      "contentHash": "2e908c762a799baea365e68a50500e2c",
+      "sourceName": "@openzeppelin/contracts-upgradeable/utils/CountersUpgradeable.sol",
+      "solcConfig": {
+        "version": "0.8.2",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "CountersUpgradeable"
       ]
     }
   }
