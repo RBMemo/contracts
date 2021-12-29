@@ -102,6 +102,9 @@ contract RBPoolController is Initializable, OwnableUpgradeable, UUPSUpgradeable 
     _seedHash = newSeedHash;
   }
 
+  function setFeeBP(uint16 newBP) external onlyOwner { feeBP = newBP; }
+  function setFeeCollector(address payable newCollector) external onlyOwner { feeCollector = newCollector; }
+
   function _poolRNG(bytes32 seedKey) private view returns(TokenPool) {
     bytes32 foundSeedHash = keccak256(abi.encode(_msgSender(), seedKey));
     require(foundSeedHash == _seedHash, "Invalid RNG seed key");

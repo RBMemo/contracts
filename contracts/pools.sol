@@ -104,7 +104,7 @@ abstract contract TokenPool is Initializable, ERC20PermitUpgradeable, AccessCont
     uint256 accountBalance = balanceOf(account);
     require(accountBalance >= amount, "ERC20: burn amount exceeds balance");
     unchecked {
-      _baseBalances[account] -= _descaled(accountBalance - amount);
+      _baseBalances[account] = _descaled(accountBalance - amount);
     }
     _baseTotalSupply -= _descaled(amount);
 
