@@ -19,7 +19,6 @@ async function deployFunc({deployments, getNamedAccounts}) {
     return {
       from: deployer,
       proxy: {
-        owner: deployer,
         proxyContract: 'UUPSProxy',
         execute: {
           init: {

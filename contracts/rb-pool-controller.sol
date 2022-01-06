@@ -18,6 +18,8 @@ contract RBPoolController is Initializable, OwnableUpgradeable, UUPSUpgradeable 
   address payable public feeCollector;
   uint16 public feeBP;
 
+  event LogRebase(uint indexed timestamp, uint amount, uint redSupply, uint blackSupply, uint8 selectedPool);
+
   struct PermitSignature {
     address owner;
     address spender;
@@ -88,7 +90,7 @@ contract RBPoolController is Initializable, OwnableUpgradeable, UUPSUpgradeable 
   function rebase(bytes32 seedKey, bytes32 newSeedHash) external onlyOwner {
     require(MEMO_CONTRACT.balanceOf(address(this)) > 0, "Controller has no MEMO");
     uint[2] memory depositedMemo = [_pool(Pool.red).totalSupply(), _pool(Pool.black).totalSupply()];
-    require(depositedMemo[0] > 0 && depositedMemo[1] > 0, "No MEMO deposited in a pool");
+    require((depositedMemo[0] + depositedMemo[1]) > 0, "No MEMO deposited in pools");
 
     uint totalDeposited = depositedMemo[0] + depositedMemo[1];
     uint totalRebase = MEMO_CONTRACT.balanceOf(address(this)) - totalDeposited;
@@ -96,16 +98,21 @@ contract RBPoolController is Initializable, OwnableUpgradeable, UUPSUpgradeable 
     uint fee = (feeBP * totalRebase) / 10000;
     MEMO_CONTRACT.transfer(feeCollector, fee);
 
-    TokenPool selectedPool = _poolRNG(seedKey);
-    selectedPool.rebase(totalRebase - fee);
+    Pool selected = _poolRNG(seedKey);
+    if(depositedMemo[uint(selected)] == 0) {
+      selected = selected == Pool.red ? Pool.black : Pool.red;
+    }
+
+    _pool(selected).rebase(totalRebase - fee);
 
     _seedHash = newSeedHash;
+    emit LogRebase(block.timestamp, totalRebase - fee, depositedMemo[0], depositedMemo[1], uint8(selected));
   }
 
   function setFeeBP(uint16 newBP) external onlyOwner { feeBP = newBP; }
   function setFeeCollector(address payable newCollector) external onlyOwner { feeCollector = newCollector; }
 
-  function _poolRNG(bytes32 seedKey) private view returns(TokenPool) {
+  function _poolRNG(bytes32 seedKey) private view returns(Pool) {
     bytes32 foundSeedHash = keccak256(abi.encode(_msgSender(), seedKey));
     require(foundSeedHash == _seedHash, "Invalid RNG seed key");
 
@@ -117,7 +124,7 @@ contract RBPoolController is Initializable, OwnableUpgradeable, UUPSUpgradeable 
       _pool(Pool.black).totalSupply()
     )));
 
-    return _pool(Pool(random_num % 2));
+    return Pool(random_num % 2);
   }
 
   function _setLastActor() private { _lastActorHash = keccak256(abi.encode(_msgSender())); }

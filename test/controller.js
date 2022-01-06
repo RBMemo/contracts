@@ -101,33 +101,82 @@ describe('RBPoolController', () => {
   describe('rebase', () => {
     const seedKey = rngSeedHex('initial$33d');
     let newSeedHash;
-    
+
     beforeEach(async () => {
-      await sendMemo(users[0].address, `${1 * 10**9}`);
-      let permitSignature = await signPermit(users[0].address, controller.address, `${.5 * 10**9}`);
-      await controller.deposit(users[0].address, `${.5 * 10**9}`, 0, permitSignature);
-      
-      permitSignature = await signPermit(users[0].address, controller.address, `${.5 * 10**9}`);
-      await controller.deposit(users[0].address, `${.5 * 10**9}`, 1, permitSignature);
-
-      newSeedHash = rngSeedHash(`${uuidv4().slice(0,23)}`, deployer);
+        await sendMemo(users[0].address, `${1 * 10**9}`);
+        newSeedHash = rngSeedHash(`${uuidv4().slice(0,23)}`, deployer);
+    });
+    
+    context('when both pools have supply', () => {
+      beforeEach(async () => {
+        let permitSignature = await signPermit(users[0].address, controller.address, `${.5 * 10**9}`);
+        await controller.deposit(users[0].address, `${.5 * 10**9}`, 0, permitSignature);
+        
+        permitSignature = await signPermit(users[0].address, controller.address, `${.5 * 10**9}`);
+        await controller.deposit(users[0].address, `${.5 * 10**9}`, 1, permitSignature);  
+      });
+  
+      it('reverts with invalid seedKey', async () => {
+        const badKey = rngSeedHex('badkey');
+        expect(controller.rebase(badKey, newSeedHash)).to.be.revertedWith('Invalid RNG seed key');
+      });
+  
+      it('sends fee to collector', async () => {
+        const memoContract = await getMemoContract(ethers.provider);
+        const feeCollector = await controller.feeCollector();
+        const feeBP = await controller.feeBP();
+        
+        await sendMemo(controller.address, `${1 * 10**9}`);
+        await controller.rebase(seedKey, newSeedHash);
+        const collectorBalance = await memoContract.balanceOf(feeCollector);
+  
+        expect(bn.from(`${1 * 10**9}`).mul(feeBP).div(10000).eq(collectorBalance)).to.eq(true);
+      });
     });
 
-    it('reverts with invalid seedKey', async () => {
-      const badKey = rngSeedHex('badkey');
-      expect(controller.rebase(badKey, newSeedHash)).to.be.revertedWith('Invalid RNG seed key');
-    });
+    context('when only 1 pool has supply', () => {
+      beforeEach(async () => {
+        let permitSignature = await signPermit(users[0].address, controller.address, `${.5 * 10**9}`);
+        await controller.deposit(users[0].address, `${.5 * 10**9}`, 1, permitSignature);
+      });
 
-    it('sends fee to collector', async () => {
-      const memoContract = await getMemoContract(ethers.provider);
-      const feeCollector = await controller.feeCollector();
-      const feeBP = await controller.feeBP();
-      
-      await sendMemo(controller.address, `${1 * 10**9}`);
-      await controller.rebase(seedKey, newSeedHash);
-      const collectorBalance = await memoContract.balanceOf(feeCollector);
+      it('always rebases to pool having supply', async () => {
+        const key1 = 'key1';
+        const key2 = 'key2';
+        const key3 = 'key3';
+        const key4 = 'key4';
+        const key5 = 'key5';
+        
+        let prevBalance = (await blackPool.balanceOf(users[0].address)).toNumber();
+        await sendMemo(controller.address, `${1 * 10**9}`);
+        await controller.rebase(seedKey, rngSeedHash(key1, deployer));
+        let newBalance = (await blackPool.balanceOf(users[0].address)).toNumber();
+        expect(prevBalance < newBalance).to.eq(true);
 
-      expect(bn.from(`${1 * 10**9}`).mul(feeBP).div(10000).eq(collectorBalance)).to.eq(true);
+        prevBalance = (await blackPool.balanceOf(users[0].address)).toNumber();
+        await sendMemo(controller.address, `${1 * 10**9}`);
+        await controller.rebase(rngSeedHex(key1), rngSeedHash(key2, deployer));
+        newBalance = (await blackPool.balanceOf(users[0].address)).toNumber();
+        expect(prevBalance < newBalance).to.eq(true);
+
+        prevBalance = (await blackPool.balanceOf(users[0].address)).toNumber();
+        await sendMemo(controller.address, `${1 * 10**9}`);
+        await controller.rebase(rngSeedHex(key2), rngSeedHash(key3, deployer));
+        newBalance = (await blackPool.balanceOf(users[0].address)).toNumber();
+        expect(prevBalance < newBalance).to.eq(true);
+
+        prevBalance = (await blackPool.balanceOf(users[0].address)).toNumber();
+        await sendMemo(controller.address, `${1 * 10**9}`);
+        await controller.rebase(rngSeedHex(key3), rngSeedHash(key4, deployer));
+        newBalance = (await blackPool.balanceOf(users[0].address)).toNumber();
+        expect(prevBalance < newBalance).to.eq(true);
+
+        prevBalance = (await blackPool.balanceOf(users[0].address)).toNumber();
+        await sendMemo(controller.address, `${1 * 10**9}`);
+        await controller.rebase(rngSeedHex(key4), rngSeedHash(key5, deployer));
+        newBalance = (await blackPool.balanceOf(users[0].address)).toNumber();
+        expect(prevBalance < newBalance).to.eq(true);
+      });
     });
   });
 });
