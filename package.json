@@ -8,7 +8,8 @@
     "sourcify-dev": "npx hardhat --network fuji sourcify",
     "sourcify-prod": "npx hardhat --network mainnet sourcify",
     "deploy-dev": "npx hardhat --network fuji deploy",
-    "deploy-prod": "npx hardhat --network mainnet deploy"
+    "deploy-prod": "npx hardhat --network mainnet deploy",
+    "flatten": "script/flatten.sh"
   },
   "repository": {
     "type": "git",
