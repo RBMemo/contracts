@@ -87,14 +87,20 @@ describe('RBPoolController', () => {
     });
 
     it('swaps pool tokens', async () => {
-      await controller.poolSwap(users[0].address, `${.75 * 10**9}`, 0, 1);
+      await users[0].controller.poolSwap(`${.75 * 10**9}`, 0, 1);
 
       expect((await redPool.balanceOf(users[0].address)).eq(bn.from(`${.25 * 10**9}`))).to.eq(true);
       expect((await blackPool.balanceOf(users[0].address)).eq(bn.from(`${.75 * 10**9}`))).to.eq(true);
     });
 
     it('only allows balance amount', async () => {
-      expect(controller.poolSwap(users[0].address, `${2 * 10**9}`, 0, 1)).to.be.reverted;
+      expect(users[0].controller.poolSwap(`${2 * 10**9}`, 0, 1)).to.be.reverted;
+    });
+
+    it('only allows sending user to swap', async () => {
+      await expect(users[1].controller.poolSwap(`${.75 * 10**9}`, 0, 1)).to.be.reverted;
+      await expect(controller.poolSwap(`${.75 * 10**9}`, 0, 1)).to.be.reverted;
+      await expect(users[0].controller.poolSwap(`${.75 * 10**9}`, 0, 1)).to.not.be.reverted;
     });
   });
 

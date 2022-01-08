@@ -3756,9 +3756,9 @@ contract RBPoolController is Initializable, OwnableUpgradeable, UUPSUpgradeable 
     return true;
   }
 
-  function poolSwap(address account, uint amount, Pool fromPool, Pool toPool) external {
-    _pool(fromPool).burn(account, amount);
-    _pool(toPool).mint(account, amount);
+  function poolSwap(uint amount, Pool fromPool, Pool toPool) external {
+    _pool(fromPool).burn(_msgSender(), amount);
+    _pool(toPool).mint(_msgSender(), amount);
     _setLastActor();
   }
 
