@@ -33,10 +33,10 @@ describe('RBPoolController', () => {
       describe('deposits', () => {
         it('requires approval', async () => {
           let permitSignature = await signPermit(users[1].address, controller.address, `${1 * 10**9}`);
-          expect(controller.deposit(users[0].address, `${1 * 10**9}`, pool, permitSignature)).to.be.revertedWith(/subtraction overflow/);
+          expect(users[0].controller.deposit(`${1 * 10**9}`, pool, permitSignature)).to.be.revertedWith(/subtraction overflow/);
 
           permitSignature = await signPermit(users[0].address, controller.address, `${1 * 10**9}`);
-          expect(controller.deposit(users[0].address, `${1 * 10**9}`, pool, permitSignature)).to.not.be.reverted;
+          expect(users[0].controller.deposit(`${1 * 10**9}`, pool, permitSignature)).to.not.be.reverted;
         });
 
         it('exchanges correct tokens', async () => {
@@ -44,7 +44,7 @@ describe('RBPoolController', () => {
           const amount = `${1 * 10**9}`;
 
           permitSignature = await signPermit(users[0].address, controller.address, amount);
-          await controller.deposit(users[0].address, amount, pool, permitSignature);
+          await users[0].controller.deposit(amount, pool, permitSignature);
 
           expect((await memoContract.balanceOf(controller.address)).eq(bn.from(amount))).to.eq(true);
           expect((await poolContract.balanceOf(users[0].address)).eq(bn.from(amount))).to.eq(true);
@@ -52,10 +52,10 @@ describe('RBPoolController', () => {
 
         it('only accepts 0 or 1 for pool', async () => {
           let permitSignature = await signPermit(users[1].address, controller.address, `${1 * 10**9}`);
-          expect(controller.deposit(users[0].address, `${1 * 10**9}`, -1, permitSignature)).to.be.reverted;
+          expect(users[0].controller.deposit(`${1 * 10**9}`, -1, permitSignature)).to.be.reverted;
 
           permitSignature = await signPermit(users[1].address, controller.address, `${1 * 10**9}`);
-          expect(controller.deposit(users[0].address, `${1 * 10**9}`, 3, permitSignature)).to.be.reverted;
+          expect(users[0].controller.deposit(`${1 * 10**9}`, 3, permitSignature)).to.be.reverted;
         });
       });
 
@@ -67,9 +67,9 @@ describe('RBPoolController', () => {
           const diff = bn.from(depoAmount).sub(withAmount);
 
           permitSignature = await signPermit(users[0].address, controller.address, depoAmount);
-          await controller.deposit(users[0].address, `${1 * 10**9}`, pool, permitSignature);
+          await users[0].controller.deposit(`${1 * 10**9}`, pool, permitSignature);
 
-          await controller.withdraw(users[0].address, withAmount, pool);
+          await users[0].controller.withdraw(withAmount, pool);
 
           expect((await memoContract.balanceOf(controller.address)).eq(bn.from(diff))).to.eq(true);
           expect((await memoContract.balanceOf(users[0].address)).eq(bn.from(withAmount))).to.eq(true);
@@ -83,7 +83,7 @@ describe('RBPoolController', () => {
     beforeEach(async () => {
       await sendMemo(users[0].address, `${1 * 10**9}`);
       let permitSignature = await signPermit(users[0].address, controller.address, `${1 * 10**9}`);
-      await controller.deposit(users[0].address, `${1 * 10**9}`, 0, permitSignature);
+      await users[0].controller.deposit(`${1 * 10**9}`, 0, permitSignature);
     });
 
     it('swaps pool tokens', async () => {
@@ -116,10 +116,10 @@ describe('RBPoolController', () => {
     context('when both pools have supply', () => {
       beforeEach(async () => {
         let permitSignature = await signPermit(users[0].address, controller.address, `${.5 * 10**9}`);
-        await controller.deposit(users[0].address, `${.5 * 10**9}`, 0, permitSignature);
+        await users[0].controller.deposit(`${.5 * 10**9}`, 0, permitSignature);
         
         permitSignature = await signPermit(users[0].address, controller.address, `${.5 * 10**9}`);
-        await controller.deposit(users[0].address, `${.5 * 10**9}`, 1, permitSignature);  
+        await users[0].controller.deposit(`${.5 * 10**9}`, 1, permitSignature);  
       });
   
       it('reverts with invalid seedKey', async () => {
@@ -155,7 +155,7 @@ describe('RBPoolController', () => {
     context('when only 1 pool has supply', () => {
       beforeEach(async () => {
         let permitSignature = await signPermit(users[0].address, controller.address, `${.5 * 10**9}`);
-        await controller.deposit(users[0].address, `${.5 * 10**9}`, 1, permitSignature);
+        await users[0].controller.deposit(`${.5 * 10**9}`, 1, permitSignature);
       });
 
       it('always rebases to pool having supply', async () => {

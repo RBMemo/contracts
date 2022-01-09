@@ -54,17 +54,17 @@ contract RBPoolController is Initializable, OwnableUpgradeable, UUPSUpgradeable 
     feeBP = feeBP_;
   }
 
-  function deposit(address account, uint amount, Pool pool, PermitSignature memory permitSignature) external returns(bool) {
+  function deposit(uint amount, Pool pool, PermitSignature memory permitSignature) external returns(bool) {
     memoPermit(permitSignature);
-    SafeERC20.safeTransferFrom(MEMO_CONTRACT, account, address(this), amount);
-    _pool(pool).mint(account, amount);
+    SafeERC20.safeTransferFrom(MEMO_CONTRACT, _msgSender(), address(this), amount);
+    _pool(pool).mint(_msgSender(), amount);
     _setLastActor();
     return true;
   }
 
-  function withdraw(address account, uint amount, Pool pool) external returns(bool) {
-    _pool(pool).burn(account, amount);
-    SafeERC20.safeTransfer(MEMO_CONTRACT, account, amount);
+  function withdraw(uint amount, Pool pool) external returns(bool) {
+    _pool(pool).burn(_msgSender(), amount);
+    SafeERC20.safeTransfer(MEMO_CONTRACT, _msgSender(), amount);
     _setLastActor();
     return true;
   }
