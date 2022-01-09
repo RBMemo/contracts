@@ -50,19 +50,21 @@ let users;
         let totalSupplyBefore = (await poolContract.totalSupply()).toNumber();
         await poolContract.rebase(rebaseAmount);
         let totalSupplyAfter = (await poolContract.totalSupply()).toNumber();
-        expect(totalSupplyAfter).to.be.closeTo(totalSupplyBefore + Number(rebaseAmount), 5);
-
-        totalSupplyBefore = (await poolContract.totalSupply()).toNumber();
-        await poolContract.rebase(`${10 * 10**9}`);
-        totalSupplyAfter = (await poolContract.totalSupply()).toNumber();
-        expect(totalSupplyAfter).to.be.closeTo(totalSupplyBefore + 10 * 10**9, 5);
+        expect(totalSupplyAfter).to.be.closeTo(totalSupplyBefore + Number(rebaseAmount), 1);
+        
+        for(var i = 0; i < 100; i++) {
+          totalSupplyBefore = (await poolContract.totalSupply()).toNumber();
+          await poolContract.rebase(`${10 * 10**9}`);
+          totalSupplyAfter = (await poolContract.totalSupply()).toNumber();
+          expect(totalSupplyAfter).to.be.closeTo(totalSupplyBefore + 10 * 10**9, 1);
+        }
       });
 
       it('increases balances proportionally', async () => {
         await poolContract.rebase(rebaseAmount);
 
         expectedBalances.forEach(async (eb, i) => {
-          expect((await poolContract.balanceOf(users[i].address)).toNumber()).to.be.closeTo(eb, 10);
+          expect((await poolContract.balanceOf(users[i].address)).toNumber()).to.be.closeTo(eb, 1);
         });
       });
 
@@ -70,11 +72,11 @@ let users;
         await poolContract.rebase(rebaseAmount);
         
         await Promise.all(expectedBalances.map(async (eb, i) => {
-          expect(users[i].poolContract.transfer(deployer, `${Math.floor(eb) - 5}`)).to.not.be.reverted;
+          expect(users[i].poolContract.transfer(deployer, `${Math.floor(eb)}`)).to.not.be.reverted;
         }));
 
         for(var i = 0; i < expectedBalances.length; i++) {
-          expect((await poolContract.balanceOf(users[i].address)).toNumber()).to.be.closeTo(0, 5);
+          expect((await poolContract.balanceOf(users[i].address)).toNumber()).to.eq(0);
         }
       });
 
@@ -82,7 +84,7 @@ let users;
         await poolContract.rebase(rebaseAmount);
 
         await Promise.all(expectedBalances.map(async (eb, i) => {
-          let amount = `${Math.floor(eb) - 5}`;
+          let amount = `${Math.floor(eb)}`;
           let permistSignature = await signPermit(users[i].address, deployer, amount, poolContract.address);
           await poolContract.permit(...permistSignature);
 
@@ -93,7 +95,7 @@ let users;
       it('allows burn of new balances', async () => {
         await poolContract.rebase(rebaseAmount);
 
-        let amount = `${Math.floor(expectedBalances[0]) - 5}`;
+        let amount = `${Math.floor(expectedBalances[0])}`;
         let totalBefore = (await poolContract.totalSupply()).toNumber();
         
         await expect(poolContract.burn(users[0].address, amount)).to.not.be.reverted;
@@ -101,10 +103,10 @@ let users;
         let totalAfter = (await poolContract.totalSupply()).toNumber();
         let balanceAfter = (await poolContract.balanceOf(users[0].address)).toNumber();
 
-        expect(totalAfter).to.closeTo(totalBefore - Number(amount), 5);
-        expect(balanceAfter).to.closeTo(0, 5);
+        expect(totalAfter).to.be.closeTo(totalBefore - Number(amount), 1);
+        expect(balanceAfter).to.eq(0);
 
-        amount = `${Math.floor(expectedBalances[1]) - 5}`;
+        amount = `${Math.floor(expectedBalances[1])}`;
         totalBefore = (await poolContract.totalSupply()).toNumber();
         
         await expect(poolContract.burn(users[1].address, amount)).to.not.be.reverted;
@@ -112,14 +114,14 @@ let users;
         totalAfter = (await poolContract.totalSupply()).toNumber();
         balanceAfter = (await poolContract.balanceOf(users[1].address)).toNumber();
 
-        expect(totalAfter).to.closeTo(totalBefore - Number(amount), 5);
-        expect(balanceAfter).to.closeTo(0, 5);
+        expect(totalAfter).to.be.closeTo(totalBefore - Number(amount), 1);
+        expect(balanceAfter).to.eq(0);
       });
 
       it('allows mint into new balances', async () => {
         await poolContract.rebase(rebaseAmount);
 
-        let amount = `${Math.floor(expectedBalances[0]) - 5}`;
+        let amount = `${Math.floor(expectedBalances[0])}`;
         let totalBefore = (await poolContract.totalSupply()).toNumber();
         let balanceBefore = (await poolContract.balanceOf(users[0].address)).toNumber();
         
@@ -128,10 +130,10 @@ let users;
         let totalAfter = (await poolContract.totalSupply()).toNumber();
         let balanceAfter = (await poolContract.balanceOf(users[0].address)).toNumber();
 
-        expect(totalAfter).to.closeTo(totalBefore + Number(amount), 5);
-        expect(balanceAfter).to.closeTo(balanceBefore + Number(amount), 5);
+        expect(totalAfter).to.be.closeTo(totalBefore + Number(amount), 1);
+        expect(balanceAfter).to.be.closeTo(balanceBefore + Number(amount), 1);
 
-        amount = `${Math.floor(expectedBalances[1]) - 5}`;
+        amount = `${Math.floor(expectedBalances[1])}`;
         totalBefore = (await poolContract.totalSupply()).toNumber();
         balanceBefore = (await poolContract.balanceOf(users[1].address)).toNumber();
         
@@ -140,8 +142,8 @@ let users;
         totalAfter = (await poolContract.totalSupply()).toNumber();
         balanceAfter = (await poolContract.balanceOf(users[1].address)).toNumber();
 
-        expect(totalAfter).to.closeTo(totalBefore + Number(amount), 5);
-        expect(balanceAfter).to.closeTo(balanceBefore + Number(amount), 5);
+        expect(totalAfter).to.be.closeTo(totalBefore + Number(amount), 1);
+        expect(balanceAfter).to.be.closeTo(balanceBefore + Number(amount), 1);
       });
     });
   });

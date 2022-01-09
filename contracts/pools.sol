@@ -12,7 +12,7 @@ abstract contract TokenPool is Initializable, ERC20PermitUpgradeable, AccessCont
   bytes32 public constant ADMIN = keccak256("ADMIN");
   bytes32 public constant CONTROLLER = keccak256("CONTROLLER");
   uint8 private constant _decimals = 9;
-  uint private constant _precision = 10 ** _decimals;
+  uint private constant _precision = 10 ** 18;
   uint256 private constant _maxSupply = type(uint128).max;
 
   uint private _scalar;
@@ -44,9 +44,6 @@ abstract contract TokenPool is Initializable, ERC20PermitUpgradeable, AccessCont
     if(totalSupply_ > 0) {
       _scalar = (_scalar * ((amount * _precision / totalSupply_) + _precision)) / _precision;
     }
-    
-    _baseTotalSupply += _descaled(totalSupply_ + amount) - _baseTotalSupply;
-    if(_baseTotalSupply > _maxSupply) { _baseTotalSupply = _maxSupply; }
 
     emit LogRebase(block.timestamp, amount);
   }
