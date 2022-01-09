@@ -1,15 +1,13 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
-import "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/draft-ERC20Permit.sol";
 import "@openzeppelin/contracts/utils/Address.sol";
 import "./pools.sol";
 
-contract RBPoolController is Initializable, OwnableUpgradeable, UUPSUpgradeable {
+contract RBPoolController is Ownable {
   ERC20Permit public constant MEMO_CONTRACT = ERC20Permit(0x136Acd46C134E8269052c62A67042D6bDeDde3C9);
 
   TokenPool[2] private _pools;
@@ -35,18 +33,13 @@ contract RBPoolController is Initializable, OwnableUpgradeable, UUPSUpgradeable 
     black
   }
   
-  constructor() initializer {}
-
-  function initialize(
+  constructor(
     address redMemoPool,
     address blackMemoPool,
     bytes32 initialSeedHash,
     address payable feeCollector_,
     uint16 feeBP_
-  ) initializer public {
-    __Ownable_init();
-    __UUPSUpgradeable_init();
-
+  ) {
     _pools[uint(Pool.red)] = TokenPool(redMemoPool);
     _pools[uint(Pool.black)] = TokenPool(blackMemoPool);
     _seedHash = initialSeedHash;
@@ -129,7 +122,4 @@ contract RBPoolController is Initializable, OwnableUpgradeable, UUPSUpgradeable 
 
   function _setLastActor() private { _lastActorHash = keccak256(abi.encode(_msgSender())); }
   function _pool(Pool pool) private view returns(TokenPool) { return _pools[uint(pool)]; }
-
-  function onUpgrade() public onlyOwner {}
-  function _authorizeUpgrade(address newImplementation) internal onlyOwner override {}
 }

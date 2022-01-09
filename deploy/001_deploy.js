@@ -15,52 +15,39 @@ async function deployFunc({deployments, getNamedAccounts}) {
   const { deploy } = deployments;
   const { deployer } = await getNamedAccounts();
 
-  function proxyConfig(initArgs, upradeArgs){
-    return {
-      from: deployer,
-      proxy: {
-        proxyContract: 'UUPSProxy',
-        execute: {
-          init: {
-            methodName: 'initialize',
-            args: initArgs
-          },
-          onUpgrade: {
-            methodName: 'onUpgrade',
-            args: upradeArgs
-          }
-        }
-      },
-      log: true    
-    }
+  const baseArgs = {
+    from: deployer,
+    log: true    
   }
 
-  const RedMemoPool = await deploy('RedMemoPool', proxyConfig([], []));
-  const BlackMemoPool = await deploy('BlackMemoPool', proxyConfig([], []));
-  const Controller = await deploy('RBPoolController', proxyConfig(
-    [
+  const RedMemoPool = await deploy('RedMemoPool', baseArgs);
+  const BlackMemoPool = await deploy('BlackMemoPool', baseArgs);
+  const Controller = await deploy('RBPoolController', {
+    ...baseArgs,
+    args: [
       `${RedMemoPool.address}`,
       `${BlackMemoPool.address}`,
       rngSeedHash(deployer),
       deployer,
-      '500' // 5%
-    ],
-    []
-  ));
+      '330' // 3.3%
+    ]
+  });
 
-  await deployments.execute(
-    'RedMemoPool',
-    { from: deployer, log: true },
-    'setController',
-    Controller.address,
-  );
+  if(Controller.newlyDeployed) {
+    await deployments.execute(
+      'RedMemoPool',
+      { from: deployer, log: true },
+      'setController',
+      Controller.address,
+    );
 
-  await deployments.execute(
-    'BlackMemoPool',
-    { from: deployer, log: true },
-    'setController',
-    Controller.address,
-  );
+    await deployments.execute(
+      'BlackMemoPool',
+      { from: deployer, log: true },
+      'setController',
+      Controller.address,
+    );
+  }
 }
 
 deployFunc.tags = ['main'];
