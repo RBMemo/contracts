@@ -21,7 +21,7 @@
     "url": "https://github.com/RBMemo/contracts/issues"
   },
   "homepage": "https://github.com/RBMemo/contracts#readme",
-  "dependencies": {
+  "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.2",
     "@openzeppelin/contracts": "^4.4.0",
     "@openzeppelin/contracts-upgradeable": "^4.4.0",
