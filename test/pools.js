@@ -26,6 +26,16 @@ let users;
       expect(users[0].poolContract.mint(users[0].address, testAmount)).to.be.reverted;
     });
 
+    it('has correct name and symbol', async () => {
+      expect(await poolContract.name()).to.eq(poolName);
+
+      const symbols = {
+        RedMemoPool: 'RMPL',
+        BlackMemoPool: 'BMPL'
+      };
+      expect(await poolContract.symbol()).to.eq(symbols[poolName]);
+    });
+
     it('has 9 decimals', async () => {
       expect(await poolContract.decimals()).to.eq(9);
     });

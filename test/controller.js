@@ -31,6 +31,12 @@ describe('RBPoolController', () => {
       });
 
       describe('deposits', () => {
+        it('reverts when locked', async () => {
+          await controller.setDepositLock(true);
+          let permitSignature = await signPermit(users[1].address, controller.address, `${1 * 10**9}`);
+          expect(users[0].controller.deposit(`${1 * 10**9}`, pool, permitSignature)).to.be.revertedWith('Deposit is locked');
+        });
+
         it('requires approval', async () => {
           let permitSignature = await signPermit(users[1].address, controller.address, `${1 * 10**9}`);
           expect(users[0].controller.deposit(`${1 * 10**9}`, pool, permitSignature)).to.be.revertedWith(/subtraction overflow/);
@@ -60,6 +66,14 @@ describe('RBPoolController', () => {
       });
 
       describe('withdraws', () => {
+        it('reverts when locked', async () => {
+          let permitSignature = await signPermit(users[0].address, controller.address, `${1 * 10**9}`);
+          await users[0].controller.deposit(`${1 * 10**9}`, pool, permitSignature);
+          
+          await controller.setWithdrawLock(true);
+          expect(users[0].controller.withdraw(`${1 * 10**9}`, pool)).to.be.revertedWith('Withdraw is locked');
+        });
+
         it('exchanges correct tokens', async () => {
           const memoContract = await getMemoContract(ethers.provider);
           const depoAmount = `${1 * 10**9}`;
@@ -84,6 +98,11 @@ describe('RBPoolController', () => {
       await sendMemo(users[0].address, `${1 * 10**9}`);
       let permitSignature = await signPermit(users[0].address, controller.address, `${1 * 10**9}`);
       await users[0].controller.deposit(`${1 * 10**9}`, 0, permitSignature);
+    });
+
+    it('reverts when locked', async () => {
+      await controller.setWithdrawLock(true);
+      expect(users[0].controller.poolSwap(`${1 * 10**9}`, 0, 1)).to.be.revertedWith('Swap is locked from withdraw');
     });
 
     it('swaps pool tokens', async () => {
@@ -149,6 +168,15 @@ describe('RBPoolController', () => {
           await controller.rebase(curSeedKey, newSeedHash);
           curSeedKey = rngSeedHex(newSeedKey);
         }
+      });
+
+      it('unlocks withdraw and deposits', async () => {
+        await controller.setDepositLock(true);
+        await controller.setWithdrawLock(true);
+
+        await controller.rebase(seedKey, newSeedHash);
+        expect(await controller.depositLock()).to.eq(false);
+        expect(await controller.withdrawLock()).to.eq(false);
       });
     });
 

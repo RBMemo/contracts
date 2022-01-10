@@ -33,14 +33,16 @@ async function deployFunc({deployments, getNamedAccounts}) {
     ]
   });
 
-  if(Controller.newlyDeployed) {
+  if(Controller.newlyDeployed || RedMemoPool.newlyDeployed) {
     await deployments.execute(
       'RedMemoPool',
       { from: deployer, log: true },
       'setController',
       Controller.address,
     );
-
+  }
+  
+  if(Controller.newlyDeployed || BlackMemoPool.newlyDeployed) {
     await deployments.execute(
       'BlackMemoPool',
       { from: deployer, log: true },

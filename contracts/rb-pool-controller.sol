@@ -4,7 +4,6 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/draft-ERC20Permit.sol";
-import "@openzeppelin/contracts/utils/Address.sol";
 import "./pools.sol";
 
 contract RBPoolController is Ownable {
@@ -15,6 +14,8 @@ contract RBPoolController is Ownable {
   bytes32 private _seedHash;
   address payable public feeCollector;
   uint16 public feeBP;
+  bool public depositLock;
+  bool public withdrawLock;
 
   event LogRebase(uint indexed timestamp, uint amount, uint redSupply, uint blackSupply, uint8 selectedPool);
 
@@ -45,9 +46,13 @@ contract RBPoolController is Ownable {
     _seedHash = initialSeedHash;
     feeCollector = feeCollector_;
     feeBP = feeBP_;
+    depositLock = false;
+    withdrawLock = false;
   }
 
   function deposit(uint amount, Pool pool, PermitSignature memory permitSignature) external returns(bool) {
+    require(!depositLock, "Deposit is locked");
+
     memoPermit(permitSignature);
     SafeERC20.safeTransferFrom(MEMO_CONTRACT, _msgSender(), address(this), amount);
     _pool(pool).mint(_msgSender(), amount);
@@ -56,6 +61,8 @@ contract RBPoolController is Ownable {
   }
 
   function withdraw(uint amount, Pool pool) external returns(bool) {
+    require(!withdrawLock, "Withdraw is locked");
+
     _pool(pool).burn(_msgSender(), amount);
     SafeERC20.safeTransfer(MEMO_CONTRACT, _msgSender(), amount);
     _setLastActor();
@@ -63,6 +70,8 @@ contract RBPoolController is Ownable {
   }
 
   function poolSwap(uint amount, Pool fromPool, Pool toPool) external {
+    require(!withdrawLock, "Swap is locked from withdraw");
+    
     _pool(fromPool).burn(_msgSender(), amount);
     _pool(toPool).mint(_msgSender(), amount);
     _setLastActor();
@@ -99,11 +108,16 @@ contract RBPoolController is Ownable {
     _pool(selected).rebase(totalRebase - fee);
 
     _seedHash = newSeedHash;
+    depositLock = false;
+    withdrawLock = false;
+
     emit LogRebase(block.timestamp, totalRebase - fee, depositedMemo[0], depositedMemo[1], uint8(selected));
   }
 
   function setFeeBP(uint16 newBP) external onlyOwner { feeBP = newBP; }
   function setFeeCollector(address payable newCollector) external onlyOwner { feeCollector = newCollector; }
+  function setDepositLock(bool lockStatus) external onlyOwner { depositLock = lockStatus; }
+  function setWithdrawLock(bool lockStatus) external onlyOwner { withdrawLock = lockStatus; }
 
   function _poolRNG(bytes32 seedKey) private view returns(Pool) {
     bytes32 foundSeedHash = keccak256(abi.encode(_msgSender(), seedKey));
