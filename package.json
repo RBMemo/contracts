@@ -1,5 +1,5 @@
 {
-  "name": "rbmemo-contracts",
+  "name": "@splitbase-dev/contracts",
   "version": "1.0.0",
   "description": "Smart Contracts",
   "scripts": {
@@ -36,5 +36,8 @@
     "hardhat-deploy-ethers": "^0.3.0-beta.11",
     "uuid": "^8.3.2",
     "web3": "^1.6.1"
-  }
+  },
+  "files": [
+    "deployments/*/*.json"
+  ]
 }
