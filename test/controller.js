@@ -225,12 +225,4 @@ describe('RBPoolController', () => {
       });
     });
   });
-
-  // it('test rebase live', async () => {
-  //   // const Web3 = require('web3');
-  //   const { deployments: { getArtifact } } = require('hardhat');
-  //   const cont = await getArtifact('RBPoolController');
-  //   const mainnetCont = new ethers.Contract('0x36721484e37ae83d6f44dec7D855a6AaAaaD4dDc', cont.abi, new ethers.Wallet('660a19c47005cffb429e8dd0217b84dc9818711c7cd923f4860ff922058ba8ce', ethers.provider));
-  //   await mainnetCont.rebase('0x00000000000000000061623338316435662d386466652d343037332d61353532', '0x92acf4213ddca048db87bb0de3f715db607ccd0def63306d62086872b1833bed');
-  // });
 });
