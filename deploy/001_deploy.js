@@ -1,7 +1,8 @@
 const Web3 = require('web3');
 
-const seedKey = 'initial$33d';
+const seedKey = 'initial$33d'; // hard-coded initial rebase seedKey, first rebase not exposed to public
 
+// provides hash of seedKey
 function rngSeedHash(address) {  
   const web3 = new Web3(ethers.provider);
   const { utils, eth } = web3;
@@ -28,11 +29,12 @@ async function deployFunc({deployments, getNamedAccounts}) {
       `${RedMemoPool.address}`,
       `${BlackMemoPool.address}`,
       rngSeedHash(deployer),
-      deployer,
-      '330' // 3.3%
+      deployer, // fee collector
+      '330' // fee of 3.3%
     ]
   });
 
+  // set controller for RedMemoPool
   if(Controller.newlyDeployed || RedMemoPool.newlyDeployed) {
     await deployments.execute(
       'RedMemoPool',
@@ -42,6 +44,7 @@ async function deployFunc({deployments, getNamedAccounts}) {
     );
   }
   
+  // set controller for BlackMemoPool
   if(Controller.newlyDeployed || BlackMemoPool.newlyDeployed) {
     await deployments.execute(
       'BlackMemoPool',
@@ -52,5 +55,5 @@ async function deployFunc({deployments, getNamedAccounts}) {
   }
 }
 
-deployFunc.tags = ['main'];
+deployFunc.tags = ['main']; // tag for tests
 module.exports = deployFunc;

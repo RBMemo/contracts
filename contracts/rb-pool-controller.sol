@@ -10,15 +10,16 @@ contract RBPoolController is Ownable {
   ERC20Permit public constant MEMO_CONTRACT = ERC20Permit(0x136Acd46C134E8269052c62A67042D6bDeDde3C9);
 
   TokenPool[2] private _pools;
-  bytes32 private _lastActorHash;
-  bytes32 private _seedHash;
+  bytes32 private _lastActorHash; // hash of last address to interact with pools
+  bytes32 private _seedHash; // hash of RNG seed
   address payable public feeCollector;
-  uint16 public feeBP;
+  uint16 public feeBP; // fee % (out of 10000)
   bool public depositLock;
   bool public withdrawLock;
 
   event LogRebase(uint indexed timestamp, uint amount, uint redSupply, uint blackSupply, uint8 selectedPool);
 
+  // Signature for EIP-2612 signed approvals
   struct PermitSignature {
     address owner;
     address spender;
@@ -29,6 +30,7 @@ contract RBPoolController is Ownable {
     bytes32 s;
   }
 
+  // Token Pool Enum
   enum Pool {
     red,
     black
@@ -49,6 +51,8 @@ contract RBPoolController is Ownable {
     depositLock = false;
     withdrawLock = false;
   }
+
+  /*** USER CALLED FUNCTIONS ***/
 
   function deposit(uint amount, Pool pool, PermitSignature memory permitSignature) external returns(bool) {
     require(!depositLock, "Deposit is locked");
@@ -89,6 +93,8 @@ contract RBPoolController is Ownable {
     );
   }
 
+  /*** OWNER CALLED FUNCTIONS ***/
+
   function rebase(bytes32 seedKey, bytes32 newSeedHash) external onlyOwner {
     require(MEMO_CONTRACT.balanceOf(address(this)) > 0, "Controller has no MEMO");
     uint[2] memory depositedMemo = [_pool(Pool.red).totalSupply(), _pool(Pool.black).totalSupply()];
@@ -118,6 +124,8 @@ contract RBPoolController is Ownable {
   function setFeeCollector(address payable newCollector) external onlyOwner { feeCollector = newCollector; }
   function setDepositLock(bool lockStatus) external onlyOwner { depositLock = lockStatus; }
   function setWithdrawLock(bool lockStatus) external onlyOwner { withdrawLock = lockStatus; }
+
+  /*** UTILITY FUNCTIONS ***/
 
   function _poolRNG(bytes32 seedKey) private view returns(Pool) {
     bytes32 foundSeedHash = keccak256(abi.encode(_msgSender(), seedKey));

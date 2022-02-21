@@ -10,12 +10,11 @@ abstract contract TokenPool is ERC20Permit, AccessControl {
   bytes32 public constant ADMIN = keccak256("ADMIN");
   bytes32 public constant CONTROLLER = keccak256("CONTROLLER");
   uint8 private constant _decimals = 9;
-  uint private constant _precision = 10 ** 18;
-  uint256 private constant _maxSupply = type(uint128).max;
+  uint private constant _precision = 10 ** 18; // number of decimals to use in mathematical calculations before rounding
 
-  uint private _scalar;
-  uint private _baseTotalSupply;
-  mapping(address => uint) private _baseBalances;
+  uint private _scalar; // amount to scale user tokens by for rebases
+  uint private _baseTotalSupply; // total supply before scaling
+  mapping(address => uint) private _baseBalances; // user balances before scaling
   
   constructor(string memory name, string memory symbol) ERC20(name, symbol) ERC20Permit(name) {
     _grantRole(ADMIN, _msgSender());
@@ -24,6 +23,18 @@ abstract contract TokenPool is ERC20Permit, AccessControl {
 
     _scalar = _precision;
   }
+
+  /*** USER CALLED FUNCTIONS ***/
+
+  function balanceOf(address account) public view override returns(uint) {
+    return _scaled(_baseBalances[account]);
+  }
+
+  function totalSupply() public view override returns (uint) {
+    return _scaled(_baseTotalSupply);
+  }
+
+  /*** CONTOLLER CALLED FUNCTIONS ***/
 
   function mint(address account, uint amount) public onlyRole(CONTROLLER) { _mint(account, amount); }
   function burn(address account, uint amount) public onlyRole(CONTROLLER) { _burn(account, amount); }
@@ -39,15 +50,11 @@ abstract contract TokenPool is ERC20Permit, AccessControl {
     emit LogRebase(block.timestamp, amount);
   }
 
+  /*** OWNER CALLED FUNCTIONS ***/
+
   function setController(address controller) public onlyRole(ADMIN) { _grantRole(CONTROLLER, controller); }
 
-  function balanceOf(address account) public view override returns(uint) {
-    return _scaled(_baseBalances[account]);
-  }
-
-  function totalSupply() public view override returns (uint) {
-    return _scaled(_baseTotalSupply);
-  }
+  /*** OVERRIDE FUNCTIONS ***/
 
   function _transfer(
     address sender,
@@ -100,6 +107,10 @@ abstract contract TokenPool is ERC20Permit, AccessControl {
     _afterTokenTransfer(account, address(0), amount);
   }
 
+  function decimals() public pure override returns (uint8) { return _decimals; }
+
+  /*** UTILITY FUNCTIONS ***/
+
   function _scaled(uint amount) private view returns(uint) {
     return (amount * _scalar) / _precision;
   }
@@ -107,8 +118,6 @@ abstract contract TokenPool is ERC20Permit, AccessControl {
   function _descaled(uint amount) private view returns(uint) {
     return (amount * _precision) / _scalar;
   }
-
-  function decimals() public pure override returns (uint8) { return _decimals; }
 }
 
 contract RedMemoPool is TokenPool {

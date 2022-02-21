@@ -3,7 +3,7 @@ const { signERC2612Permit } = require('eth-permit');
 const Web3 = require('web3');
 
 const MEMO_ADDRESS = '0x136Acd46C134E8269052c62A67042D6bDeDde3C9';
-const MEMO_HOLDER = '0x087e9c8ef2d97740340a471ff8bb49f5490f6cf6';
+const MEMO_HOLDER = '0x087e9c8ef2d97740340a471ff8bb49f5490f6cf6'; // largest holder of MEMO as of Dec 6, 2021
 
 async function setupUsers(addresses, contracts) {
   const users = [];
@@ -47,6 +47,7 @@ async function setupSendMemo(address, amount) {
   });
 }
 
+// send MEMO from holder to address
 async function sendMemo(address, amount) {  
   if((await ethers.provider.getBalance(MEMO_HOLDER)).lt(.001 * 10**18)) {
     await setupSendMemo(address, `${1 * 10**18}`);
